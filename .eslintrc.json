@@ -1,0 +1,51 @@
+{
+  "env": {
+      "browser": true,
+      "commonjs": true,
+      "es2021": true,
+      "node": true
+  },
+  "extends": [
+      "airbnb-base",
+      "eslint:recommended",
+      "plugin:import/recommended"
+  ],
+  "parserOptions": {
+      "ecmaVersion": "latest"
+  },
+  "rules": {
+    "no-console": "off",
+    "no-shadow": [
+      "off",
+      {
+        "builtinGlobals": false,
+        "hoist": "never",
+        "allow": []
+      }
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "none",
+        "ignoreRestSiblings": false
+      }
+    ],
+    "import/no-dynamic-require": "off",
+    "global-require": "off"
+  },
+  "plugins": [
+    "json-format",
+    "import"
+  ],
+  "settings": {
+    "json/sort-package-json": "standard",
+    "json/ignore-files": [
+      "**/package-lock.json"
+    ],
+    "json/json-with-comments-files": [
+      "**/tsconfig.json",
+      ".vscode/**"
+    ]
+  }
+}
