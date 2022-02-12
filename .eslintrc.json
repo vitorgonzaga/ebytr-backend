@@ -1,17 +1,17 @@
 {
   "env": {
-      "browser": true,
-      "commonjs": true,
-      "es2021": true,
-      "node": true
+    "browser": true,
+    "commonjs": true,
+    "es2021": true,
+    "node": true
   },
   "extends": [
-      "airbnb-base",
-      "eslint:recommended",
-      "plugin:import/recommended"
+    "airbnb-base",
+    "eslint:recommended",
+    "plugin:import/recommended"
   ],
   "parserOptions": {
-      "ecmaVersion": "latest"
+    "ecmaVersion": "latest"
   },
   "rules": {
     "no-console": "off",
