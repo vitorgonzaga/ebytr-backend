@@ -1,7 +1,6 @@
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
-// const MONGO_DB_URL = 'mongodb://127.0.0.1:27017';
 const MONGO_DB_URL = process.env.MONGO_DB_URL || 'mongodb://localhost:27017/';
 const DB_NAME = 'Cookmaster';
 
