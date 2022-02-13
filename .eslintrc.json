@@ -14,6 +14,7 @@
     "ecmaVersion": "latest"
   },
   "rules": {
+    "consistent-return": "off",
     "no-console": "off",
     "no-shadow": [
       "off",
@@ -24,7 +25,7 @@
       }
     ],
     "no-unused-vars": [
-      "error",
+      "off",
       {
         "vars": "all",
         "args": "none",
