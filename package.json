@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "cm": "cz",
+    "debug": "nodemon .",
     "lint": "eslint",
     "prepare": "husky install",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,6 +17,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.3.1"
   },
   "devDependencies": {
