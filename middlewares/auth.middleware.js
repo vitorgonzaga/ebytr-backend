@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const authService = require('../services/auth.service');
 
 module.exports = async (req, res, next) => {
@@ -7,6 +8,7 @@ module.exports = async (req, res, next) => {
     const payloadFromJwt = await authService.verifyToken(authorization);
     if (!payloadFromJwt) return res.status(401).json({ message: 'jwt malformed' });
     const { _id, email } = payloadFromJwt;
+    if (!ObjectId.isvalid(_id)) return res.status(401).json({ message: 'userId invalid' });
     req.userId = _id;
     req.userEmail = email;
     next();
