@@ -1,14 +1,19 @@
 const Joi = require('joi');
-const { getAllTasksModel, addTaskModel } = require('../models/tasks.model');
+const {
+  getAllTasksModel,
+  addTaskModel,
+  updateTaskModel,
+  getTaskIdByTask,
+} = require('../models/tasks.model');
 const errorConstructor = require('../utils/errorHandling');
 
 const taskSchema = Joi.object({
   task: Joi.string().required(),
-  userId: Joi.string().required(),
+  status: Joi.string().required(),
 });
 
-const validateTaskSchema = (task, userId) => {
-  const { error } = taskSchema.validate({ task, userId });
+const validateTaskSchema = (task, status) => {
+  const { error } = taskSchema.validate({ task, status });
   if (error) throw errorConstructor(400, 'invalid data', 'Invalid entries. Try again.');
 };
 
@@ -18,14 +23,26 @@ const getAllTasksService = async (userId) => {
 };
 
 const addTaskService = async (task, status, userId) => {
-  validateTaskSchema(task, userId);
+  validateTaskSchema(task, status);
   const { id } = await addTaskModel(task, status, userId);
   return {
     id, task, status, userId,
   };
 };
 
+const getTaskIdService = async (task, userId) => {
+  const id = await getTaskIdByTask(task, userId);
+  return id;
+};
+
+const updateTaskService = async (taskId, task, status) => {
+  validateTaskSchema(task, status);
+  await updateTaskModel(taskId, task, status);
+};
+
 module.exports = {
   getAllTasksService,
   addTaskService,
+  getTaskIdService,
+  updateTaskService,
 };
