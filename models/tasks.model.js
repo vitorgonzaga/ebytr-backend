@@ -27,10 +27,19 @@ const removeTaskModel = async (taskName) => {
   await conn.collection(COLLECTION_TASKS).deleteOne({ where: { task: taskName } });
 };
 
-const updateTaskModel = async (task, status) => {
+// salvar o _id no localStorage (sempre sobrescrevendo o último)
+const getTaskIdByTask = async (task, userId) => {
+  const conn = await connection();
+  const { _id } = await conn.collection(COLLECTION_TASKS).findOne(
+    { task, userId: ObjectId(userId) },
+  );
+  return _id;
+};
+
+const updateTaskModel = async (taskId, task, status) => {
   const conn = await connection();
   await conn.collection(COLLECTION_TASKS).updateOne(
-    { task },
+    { _id: ObjectId(taskId) },
     { $set: { task, status } },
   );
 };
@@ -39,12 +48,6 @@ module.exports = {
   getAllTasksModel,
   addTaskModel,
   removeTaskModel,
+  getTaskIdByTask,
   updateTaskModel,
 };
-
-/*
-body = {
-  task: "string",
-  status: "string"
-}
-*/
