@@ -6,11 +6,13 @@ const {
   addTaskController,
   updateTaskController,
   getTaskIdController,
+  removeTaskController,
 } = require('../controllers/tasks.controller');
 
 router.get('/', auth, getAllTasksController);
-router.get('/taskid', auth, getTaskIdController);
 router.post('/', auth, addTaskController);
-router.put('/', auth, updateTaskController);
+router.get('/taskid', auth, getTaskIdController);
+router.put('/:taskid', auth, updateTaskController);
+router.delete('/:taskid', auth, removeTaskController);
 
 module.exports = router;
