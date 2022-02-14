@@ -22,9 +22,9 @@ const addTaskModel = async (task, status, userId) => {
   return { id: insertedId };
 };
 
-const removeTaskModel = async (taskName) => {
+const removeTaskModel = async (taskId) => {
   const conn = await connection();
-  await conn.collection(COLLECTION_TASKS).deleteOne({ where: { task: taskName } });
+  await conn.collection(COLLECTION_TASKS).deleteOne({ _id: ObjectId(taskId) });
 };
 
 // salvar o _id no localStorage (sempre sobrescrevendo o último)
