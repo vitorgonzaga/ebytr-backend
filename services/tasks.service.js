@@ -4,6 +4,7 @@ const {
   addTaskModel,
   updateTaskModel,
   getTaskIdByTask,
+  removeTaskModel,
 } = require('../models/tasks.model');
 const errorConstructor = require('../utils/errorHandling');
 
@@ -40,9 +41,14 @@ const updateTaskService = async (taskId, task, status) => {
   await updateTaskModel(taskId, task, status);
 };
 
+const removeTaskService = async (taskId) => {
+  await removeTaskModel(taskId);
+};
+
 module.exports = {
   getAllTasksService,
   addTaskService,
   getTaskIdService,
   updateTaskService,
+  removeTaskService,
 };
