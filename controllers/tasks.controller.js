@@ -1,6 +1,8 @@
 const {
   getAllTasksService,
   addTaskService,
+  getTaskIdService,
+  updateTaskService,
 } = require('../services/tasks.service');
 
 const getAllTasksController = async (req, res, next) => {
@@ -26,14 +28,39 @@ const addTaskController = async (req, res, next) => {
   }
 };
 
-/*
-body = {
-  task: "string",
-  status: "string"
-}
-*/
+// Quando o usuário clicar em "editar"
+// 1. app faz uma requisição to tipo get para obter o id da task no db
+// 2. salva isso no localstorage
+// 3. depois utiliza o id salvo para montar o body da requisição do tipo PUT
+// 4. a rota para realizar o GET do taskId será
+
+const getTaskIdController = async (req, res, next) => {
+  try {
+    const { userId } = req;
+    const { task } = req.body;
+    const taskId = await getTaskIdService(task, userId);
+    return res.status(200).json({ id: taskId });
+  } catch (error) {
+    console.log(error.message);
+    next(error);
+  }
+};
+
+const updateTaskController = async (req, res, next) => {
+  try {
+    // const { userId } = req;
+    const { taskId, task, status } = req.body;
+    const taskUpdated = await updateTaskService(taskId, task, status); // Não enviar o userId
+    return res.status(200).json(taskUpdated);
+  } catch (error) {
+    console.log(error.message);
+    next(error);
+  }
+};
 
 module.exports = {
   getAllTasksController,
   addTaskController,
+  getTaskIdController,
+  updateTaskController,
 };
