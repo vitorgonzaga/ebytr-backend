@@ -6,7 +6,7 @@ const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
 const { getConnectionMock } = require('./connectionMock') // Conexão mockada
 
-const DB_NAME = 'EbytrToDoList';
+const { COLLECTION_USERS, DB_NAME } = process.env;
 
 describe('Testes unitários (./models/users.model.js)', () => {
   let connectionMock;
@@ -30,7 +30,7 @@ describe('Testes unitários (./models/users.model.js)', () => {
 
   describe('Inserindo usuário através da função "addUser"', () => {
     before(async () => {
-      await connectionMock.db(DB_NAME).collection('users').deleteMany({})
+      await connectionMock.db(DB_NAME).collection(COLLECTION_USERS).deleteMany({})
     })
 
     it('retorna um objeto com a propriedade "id" contendo um ObjectId do mongoDB', async () => {

@@ -6,7 +6,7 @@ const taskModel = require('../models/tasks.model');
 const { expect } = require('chai')
 const { ObjectId } = require('mongodb');
 
-const DB_NAME = 'EbytrToDoList';
+const { COLLECTION_TASKS, DB_NAME } = process.env;
 
 describe('Testes unitários (./models/tasks.model.js)', () => {
   let connectionMock;
@@ -38,7 +38,7 @@ describe('Testes unitários (./models/tasks.model.js)', () => {
   describe('Inserindo uma tarefa através da função "addTaskModel"', () => {
 
     before(async () => {
-      await connectionMock.db(DB_NAME).collection('tasks').deleteMany({});
+      await connectionMock.db(DB_NAME).collection(COLLECTION_TASKS).deleteMany({});
     });
 
     it('retorna um objeto contendo um id válido', async () => {
@@ -52,7 +52,7 @@ describe('Testes unitários (./models/tasks.model.js)', () => {
   describe('Buscando tarefas através da função "getAllTasksModel"', () => {
 
     before(async () => {
-      await connectionMock.db(DB_NAME).collection('tasks').deleteMany({});
+      await connectionMock.db(DB_NAME).collection(COLLECTION_TASKS).deleteMany({});
       const { id } = user;
       const payloadManyTasks = [
         { task: 'revisar frontend', status: 'pendente', userId: id },
@@ -61,7 +61,7 @@ describe('Testes unitários (./models/tasks.model.js)', () => {
         { task: 'revisar conteúdo de docker', status: 'pendente', userId: id },
         { task: 'fazer o deploy do projeto blitz', status: 'pendente', userId: id },
       ];
-      await connectionMock.db(DB_NAME).collection('tasks').insertMany(payloadManyTasks);
+      await connectionMock.db(DB_NAME).collection(COLLECTION_TASKS).insertMany(payloadManyTasks);
     });
 
     it('quando existem tarefas cadastradas retorna um array', async () => {
@@ -76,7 +76,7 @@ describe('Testes unitários (./models/tasks.model.js)', () => {
     before(async () => {
       const { task, status, userId } = payloadTask
       await taskModel.addTaskModel(task, status, userId);
-      // const tasks = await connectionMock.db(DB_NAME).collection('tasks').find({}).toArray();
+      // const tasks = await connectionMock.db(DB_NAME).collection(COLLECTION_TASKS).find({}).toArray();
     })
 
     it('espera que a tarefa seja atualizada com sucesso', async () => {
@@ -84,7 +84,7 @@ describe('Testes unitários (./models/tasks.model.js)', () => {
       const { task } = payloadTask;
       const taskId = await taskModel.getTaskIdByTask(task, id);
       await taskModel.updateTaskModel(taskId, task, 'feito');
-      const taskUpdated = await connectionMock.db(DB_NAME).collection('tasks').findOne({ _id: taskId });
+      const taskUpdated = await connectionMock.db(DB_NAME).collection(COLLECTION_TASKS).findOne({ _id: taskId });
       expect(taskUpdated).to.be.an('object');
       expect(ObjectId.isValid(taskUpdated._id)).to.be.eq(true);
       expect(taskUpdated.userId).to.be.eql(id);
@@ -99,7 +99,7 @@ describe('Testes unitários (./models/tasks.model.js)', () => {
       const { task } = payloadTask;
       const taskId = await taskModel.getTaskIdByTask(task, id);
       await taskModel.removeTaskModel(taskId);
-      const taskDeleted = await connectionMock.db(DB_NAME).collection('tasks').findOne({ _id: taskId });
+      const taskDeleted = await connectionMock.db(DB_NAME).collection(COLLECTION_TASKS).findOne({ _id: taskId });
       expect(taskDeleted).to.be.eq(null);
     });
     it('espera que o banco possua 5 tarefas cadastradas do mesmo usuário', async () => {
