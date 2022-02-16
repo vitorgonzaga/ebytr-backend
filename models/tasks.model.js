@@ -30,9 +30,12 @@ const removeTaskModel = async (taskId) => {
 // salvar o _id no localStorage (sempre sobrescrevendo o último)
 const getTaskIdByTask = async (task, userId) => {
   const conn = await connection();
-  const { _id } = await conn.collection(COLLECTION_TASKS).findOne(
-    { task, userId: ObjectId(userId) },
-  );
+  const { _id } = await conn.collection(COLLECTION_TASKS).findOne({
+    $and: [
+      { task },
+      { userId: ObjectId(userId) },
+    ],
+  });
   return _id;
 };
 
