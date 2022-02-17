@@ -83,13 +83,13 @@ describe('Testes unitários (./models/tasks.model.js)', () => {
       const { id } = user;
       const { task } = payloadTask;
       const taskId = await taskModel.getTaskIdByTask(task, id);
-      await taskModel.updateTaskModel(taskId, task, 'feito');
+      await taskModel.updateTaskModel(taskId, task, 'pronto');
       const taskUpdated = await connectionMock.db(DB_NAME).collection(COLLECTION_TASKS).findOne({ _id: taskId });
       expect(taskUpdated).to.be.an('object');
       expect(ObjectId.isValid(taskUpdated._id)).to.be.eq(true);
       expect(taskUpdated.userId).to.be.eql(id);
       expect(taskUpdated.task).to.be.eq(task);
-      expect(taskUpdated.status).to.be.eq('feito');
+      expect(taskUpdated.status).to.be.eq('pronto');
     })
   });
 
