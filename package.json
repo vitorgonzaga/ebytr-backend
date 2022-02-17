@@ -8,6 +8,7 @@
     "debug": "nodemon .",
     "lint": "eslint",
     "prepare": "husky install",
+    "start": "node ./api/server.js",
     "test": "mocha ./tests/**/*$NAME*.test.js --exit",
     "test:coverage": "nyc --all npm run test",
     "test:coverage:json": "nyc --all --reporter=json-summary npm run test"
