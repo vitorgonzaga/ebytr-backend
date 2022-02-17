@@ -10,7 +10,7 @@ const errorConstructor = require('../utils/errorHandling');
 
 const taskSchema = Joi.object({
   task: Joi.string().required(),
-  status: Joi.string().invalid(['pendente', 'em andamento', 'pronto']).required(),
+  status: Joi.string().valid('pendente', 'em andamento', 'pronto').required(),
 });
 
 const validateTaskSchema = (task, status) => {
