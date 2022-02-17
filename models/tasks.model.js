@@ -18,6 +18,8 @@ const addTaskModel = async (task, status, userId) => {
     task,
     status,
     userId: ObjectId(userId),
+    createdAt: new Date(),
+    updatedAt: new Date(),
   });
   return { id: insertedId };
 };
@@ -43,7 +45,7 @@ const updateTaskModel = async (taskId, task, status) => {
   const conn = await connection();
   await conn.collection(COLLECTION_TASKS).updateOne(
     { _id: ObjectId(taskId) },
-    { $set: { task, status } },
+    { $set: { task, status, updatedAt: new Date() } },
   );
 };
 
