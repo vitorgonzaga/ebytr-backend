@@ -31,7 +31,7 @@ const addTaskController = async (req, res, next) => {
 
 // Quando o usuário clicar em "editar"
 // 1. app faz uma requisição to tipo get para obter o id da task no db
-// 2. salva isso no localstorage
+// 2. salva isso no localstorage/redux/contextAPI
 // 3. depois utiliza o id salvo para montar o body da requisição do tipo PUT
 // 4. a rota para realizar o GET do taskId será
 
