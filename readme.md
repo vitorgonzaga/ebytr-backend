@@ -204,7 +204,7 @@ A pasta `./tests` contém os testes unitários desenvolvidos até o momento.
 
 # **Deploy no heroku**
 
-Trata-se do endpoint a ser disponibilizado para o time de desenvolvimento do front-end.
+Endpoint a ser disponibilizado para o time de desenvolvimento do front-end.
 
-`link aqui`
+https://ebytr-backend-pd.herokuapp.com/
 
